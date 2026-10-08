@@ -1,6 +1,6 @@
 ---
-name: ent
-description: 'Use this skill whenever the user wants to run an ent build task in the agent''s current project directory, or wants to read or inspect the ent log buffer. Ent (https://github.com/dpom/ent) is an Emacs Lisp build tool: projects define tasks in a `.ent.el` file and ent runs them, reporting output in the `*ent-log*` buffer. Covers requests like "/ent test", "run the ent lint task", "run the build with ent", "run ent task X", "did the ent task pass", "read the ent log". Make sure to use this skill proactively whenever YOU (the agent) need to run a project build, test, lint, compile, or cleanup step during a coding task and the project uses ent (has a `.ent.el` file in it or above the current directory) — check for it before falling back to shell commands, even if the user never said "ent". The skill runs the task through the running Emacs server via emacsclient, waits for it to finish, and brings the `*ent-log*` buffer contents into the conversation for further processing.'
+name: run-ent-task
+description: 'Use this skill whenever the user wants to run an ent build task in the agent''s current project directory, or wants to read or inspect the ent log buffer. Ent (https://github.com/dpom/ent) is an Emacs Lisp build tool: projects define tasks in a `.ent.el` file and ent runs them, reporting output in the `*ent-log*` buffer. Covers requests like "/run-ent-task test", "run the ent lint task", "run the build with ent", "run ent task X", "did the ent task pass", "read the ent log". Make sure to use this skill proactively whenever YOU (the agent) need to run a project build, test, lint, compile, or cleanup step during a coding task and the project uses ent (has a `.ent.el` file in it or above the current directory) — check for it before falling back to shell commands, even if the user never said "ent". The skill runs the task through the running Emacs server via emacsclient, waits for it to finish, and brings the `*ent-log*` buffer contents into the conversation for further processing.'
 tools: Bash
 ---
 
@@ -10,7 +10,7 @@ tools: Bash
 
 This skill is not just for explicit user requests. Use it proactively during coding tasks whenever the project uses ent and you need to run or verify a build step. Before running a build, test, lint, or cleanup command yourself, check whether the current directory or its parents contain a `.ent.el` project file (e.g. via `ls` or the existence of the file). If it does, the ent tasks are the project's canonical way to run those steps — use this skill instead of ad-hoc shell commands, and report the results back from the log.
 
-First, locate `agent-skill-ent.el`, which lives alongside this skill file at `skills/ent/agent-skill-ent.el` in the emacs-skills plugin directory.
+First, locate `agent-skill-ent.el`, which lives alongside this skill file at `skills/run-ent-task/agent-skill-ent.el` in the emacs-skills plugin directory.
 
 ## Run a task
 
@@ -19,7 +19,7 @@ First, locate `agent-skill-ent.el`, which lives alongside this skill file at `sk
 ```sh
 emacsclient --eval '
 (progn
-  (load "/path/to/skills/ent/agent-skill-ent.el" nil t)
+  (load "/path/to/skills/run-ent-task/agent-skill-ent.el" nil t)
   (agent-skill-ent-run
     :task "test"
     :dir "/home/user/project"))'
@@ -46,7 +46,7 @@ Ask which task, or if the user refers to a task loosely ("run the build"), disco
 ```sh
 emacsclient --eval '
 (progn
-  (load "/path/to/skills/ent/agent-skill-ent.el" nil t)
+  (load "/path/to/skills/run-ent-task/agent-skill-ent.el" nil t)
   (agent-skill-ent-tasks
     :dir "/home/user/project"))'
 ```
@@ -60,7 +60,7 @@ When a task was already run (by the user with `M-x ent-run`, or by you earlier) 
 ```sh
 emacsclient --eval '
 (progn
-  (load "/path/to/skills/ent/agent-skill-ent.el" nil t)
+  (load "/path/to/skills/run-ent-task/agent-skill-ent.el" nil t)
   (agent-skill-ent-log))'
 ```
 
