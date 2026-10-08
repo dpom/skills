@@ -4,12 +4,12 @@ Agent skills for working with a running Emacs via `emacsclient`. Requires an Ema
 
 ## Skills
 
-### buffer
+### read-emacs-buffer
 
 Read the contents of a named Emacs buffer (e.g. `*Messages*`, `*scratch*`, a compilation buffer) through `emacsclient`, with optional line-range and regexp narrowing. Use whenever an agent references a buffer and wants its contents — "explain the error from the `*Messages*` buffer lines 23-25".
 
 ```bash
-npx skills add dpom/skills --skill buffer
+npx skills add dpom/skills --skill read-emacs-buffer
 ```
 
 ### ent

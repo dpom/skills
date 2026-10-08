@@ -1,23 +1,23 @@
 ---
-name: buffer
-description: 'Use this skill whenever the user references an Emacs buffer — e.g. `*Messages*`, `*scratch*`, `*Compile-Log*`, `*Org Agenda*`, a compilation or error buffer, or any buffer name — and wants to read, inspect, search, or explain its contents, or invokes "/buffer". Read the buffer via emacsclient and bring its text into the conversation.'
+name: read-emacs-buffer
+description: 'Use this skill whenever the user references an Emacs buffer — e.g. `*Messages*`, `*scratch*`, `*Compile-Log*`, `*Org Agenda*`, a compilation or error buffer, or any buffer name — and wants to read, inspect, search, or explain its contents, or invokes "/read-emacs-buffer". Read the buffer via emacsclient and bring its text into the conversation.'
 tools: Bash
 ---
 
 # Read an Emacs buffer
 
-Read the contents of a named Emacs buffer (e.g. `*Messages*`, `*scratch*`, a compilation, `*Org Agenda*`, or ibuffer output) using `emacsclient --eval`, and bring the text back into the conversation. The user may invoke this directly with `/buffer`, but they are more likely to refer to a buffer mid-conversation — e.g. "Explain the error from `*Messages*` buffer lines 23-25". Treat any buffer-name reference in the prompt as a request to read it.
+Read the contents of a named Emacs buffer (e.g. `*Messages*`, `*scratch*`, a compilation, `*Org Agenda*`, or ibuffer output) using `emacsclient --eval`, and bring the text back into the conversation. The user may invoke this directly with `/read-emacs-buffer`, but they are more likely to refer to a buffer mid-conversation — e.g. "Explain the error from `*Messages*` buffer lines 23-25". Treat any buffer-name reference in the prompt as a request to read it.
 
 ## How to read
 
-First, locate `agent-skill-buffer.el` which lives alongside this skill file at `skills/buffer/agent-skill-buffer.el` in the emacs-skills plugin directory.
+First, locate `agent-skill-buffer.el` which lives alongside this skill file at `skills/read-emacs-buffer/agent-skill-buffer.el` in the emacs-skills plugin directory.
 
 A plain read of the whole buffer:
 
 ```sh
 emacsclient --eval '
 (progn
-  (load "/path/to/skills/buffer/agent-skill-buffer.el" nil t)
+  (load "/path/to/skills/read-emacs-buffer/agent-skill-buffer.el" nil t)
   (agent-skill-buffer
     :buffer "*scratch*"))'
 ```
@@ -46,7 +46,7 @@ Buffers like `*Messages*` can be huge, so narrow before reading. `:start` and `:
 ```sh
 emacsclient --eval '
 (progn
-  (load "/path/to/skills/buffer/agent-skill-buffer.el" nil t)
+  (load "/path/to/skills/read-emacs-buffer/agent-skill-buffer.el" nil t)
   (agent-skill-buffer
     :buffer "*Messages*"
     :regexp "error"))'
