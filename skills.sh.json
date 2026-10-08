@@ -1,0 +1,11 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Emacs",
+      "description": "Skills for working with a running Emacs via emacsclient.",
+      "skills": ["read-emacs-buffer", "run-ent-task"]
+    }
+  ]
+}
